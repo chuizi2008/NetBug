@@ -3,8 +3,8 @@ var url = require('url');
 var fs = require('fs');
 
 var reprNum = /[0-9]+$/;
-var repr = '<a href="/JianDan?page={id}">{id}</a>&nbsp&nbsp';
-var reprNow = '<a href="/JianDan?page={id}"><span style="font-size:20px;color:blue;">[{id}]</span></a>&nbsp';
+var repr = '<a href="/qiubaichengren?page={id}">{id}</a>&nbsp&nbsp';
+var reprNow = '<a href="/qiubaichengren?page={id}"><span style="font-size:20px;color:blue;">[{id}]</span></a>&nbsp';
 
 function PageCount(page_id)
 {
@@ -18,7 +18,7 @@ function PageCount(page_id)
         if (index > 4)
             return pageID;
             
-        if (fs.existsSync("./JianDan/page/" + n + ".html"))
+        if (fs.existsSync("./qiubaichengren/page/" + n + ".html"))
         {
             pageID[index] = n;
             index++;
@@ -46,7 +46,7 @@ function SendPage(res, page_id)
     res.write('<a href="/">返回到主页</a>');
         
     res.write('</div><div class="bottom" id="bottomData">');
-    res.write(fs.readFileSync("./JianDan/page/" + page_id + ".html","utf-8"));
+    res.write(fs.readFileSync("./qiubaichengren/page/" + page_id + ".html","utf-8"));
     res.write('</div>');
     res.end();
 }
@@ -56,7 +56,7 @@ function Start(req, res)
     var arg = url.parse(req.url, true).query;
     if (arg.page == null && req.method.toLowerCase() === 'get')
     {
-        SendPage(res, +fs.readFileSync("./JianDan/page.log","utf-8"));
+        SendPage(res, +fs.readFileSync("./qiubaichengren/page.log","utf-8"));
     }
     else if (reprNum.test(arg.page))
     {

@@ -32,19 +32,9 @@ var repr4 = new RegExp("(.jpg|.png|.gif|.ps|.jpeg)$");
 // 输出
 var repr5 = '<img src="{1}"/><br/><br/><br/>';
 
-function Start()
+exports = module.exports = function ()
 {
-    // 定时通知帐号服务器我还活着
-	Ping();
-	setInterval(function()
-	{
-		Ping();
-	}, 1 * 60 * 1000);
-}
-
-function Ping()
-{
-    var jiandan_id = +fs.readFileSync("./JianDan/jiandan.log","utf-8");
+	var jiandan_id = +fs.readFileSync("./JianDan/jiandan.log","utf-8");
     var page_id = +fs.readFileSync("./JianDan/page.log","utf-8");
     page_id += 1;
     
@@ -112,5 +102,3 @@ function getCommentPage(mainPage, callback)
         console.error('err',e)
     })
 }
-
-exports.Start = Start;

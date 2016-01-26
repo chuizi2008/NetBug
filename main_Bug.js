@@ -16,6 +16,7 @@ if (cluster.isMaster)
 	
 	cluster.on('exit', function(worker, code, signal) 
 	{
+        return;
 		// 一旦工作进程崩了，自动重启
 		console.log('worker   ID:[' + worker.ID + '] PID:[' + worker.process.pid + '] died, restart');
 		AddFork(worker.ID);
@@ -25,16 +26,14 @@ else
 {
     process.on('message', function(msg) {
 		if (msg == 1)
-			worker = require('./JianDan/Main');
+			require('./Main')();
         else if (msg == 2)
-			worker = require('./JianDan/Bug');
+			require('./Bug')();
 		else
 		{
             console.log('无法识别的模块编号[' + msg + ']，启动请求取消');
 			return;
 		}
-
-		worker.Start(msg);
 	});
 }
 
